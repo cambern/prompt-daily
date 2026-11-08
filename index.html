@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Prompt Daily·每日魔咒</title>
-<meta name="description" content="Prompt Daily·每日魔咒 — 浏览器里的 Prompt 收藏夹。本页提供扩展的隐私政策（中文 / English）。" />
+<title>Prompt Daily·每日魔咒 — 浏览器里的 Prompt 收藏夹</title>
+<meta name="description" content="Prompt Daily·每日魔咒：把反复要用的提示词存起来，一次点击就写进 ChatGPT、Claude、DeepSeek 等 18 个 AI 站点的对话框。本地优先，无账号，无服务器。" />
 <style>
   :root {
     --bg: #ffffff;
@@ -13,6 +13,7 @@
     --line: #e6e8eb;
     --soft: #f6f7f9;
     --accent: #6b5bd2;
+    --accent-soft: #f1eefe;
   }
   * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
@@ -23,9 +24,9 @@
     font: 16px/1.75 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
       "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   }
-  main { max-width: 720px; margin: 0 auto; padding: 72px 24px 96px; }
+  main { max-width: 740px; margin: 0 auto; padding: 64px 24px 88px; }
 
-  .brand { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+  .brand { display: flex; align-items: center; gap: 14px; margin-bottom: 36px; }
   .mark {
     width: 44px; height: 44px; flex: 0 0 44px; border-radius: 11px;
     background: linear-gradient(135deg, #5F5CF2, #8B5CF6);
@@ -37,19 +38,31 @@
   .brand-text b { font-size: 17px; letter-spacing: -.01em; }
   .brand-text span { display: block; color: var(--muted); font-size: 13px; }
 
-  h1 { font-size: 30px; line-height: 1.35; margin: 0 0 12px; letter-spacing: -.02em; }
-  .lede { color: var(--muted); margin: 0 0 8px; font-size: 15px; }
-  .lede + .lede { margin-bottom: 40px; }
+  h1 { font-size: 32px; line-height: 1.38; margin: 0 0 14px; letter-spacing: -.02em; }
+  .lede { color: var(--muted); margin: 0 0 10px; font-size: 15.5px; }
+  .lede-en { color: var(--muted); font-size: 13.5px; margin: 0 0 40px; opacity: .82; }
 
   h2 {
     font-size: 13px; font-weight: 600; color: var(--muted);
     letter-spacing: .08em; text-transform: uppercase;
-    margin: 0 0 14px;
+    margin: 44px 0 14px; padding-top: 22px; border-top: 1px solid var(--line);
   }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .cell {
+    border: 1px solid var(--line); border-radius: 10px;
+    padding: 16px 18px; background: #fff;
+  }
+  .cell b { display: block; font-size: 15px; margin-bottom: 4px; letter-spacing: -.01em; }
+  .cell span { color: var(--muted); font-size: 13.5px; line-height: 1.62; display: block; }
+
+  ul.plain { margin: 0; padding-left: 20px; }
+  ul.plain li { margin: 6px 0; color: var(--fg); font-size: 15px; }
+  ul.plain li span { color: var(--muted); }
 
   .cards { display: grid; gap: 12px; }
   a.card {
-    display: block; padding: 18px 20px; border: 1px solid var(--line);
+    display: block; padding: 17px 20px; border: 1px solid var(--line);
     border-radius: 10px; text-decoration: none; color: inherit;
     transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
     background: #fff;
@@ -58,20 +71,31 @@
     border-color: #c9c4ee; box-shadow: 0 8px 22px rgba(31, 35, 40, .07);
     transform: translateY(-1px);
   }
-  .card-title { font-size: 16px; font-weight: 600; margin-bottom: 2px; }
+  .card-title { font-size: 15.5px; font-weight: 600; margin-bottom: 2px; }
   .card-title .arrow { color: var(--accent); margin-left: 6px; font-weight: 400; }
   .card-desc { color: var(--muted); font-size: 13.5px; }
 
-  .note {
-    margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line);
-    color: var(--muted); font-size: 13.5px;
+  .promise {
+    background: var(--accent-soft); border-left: 3px solid var(--accent);
+    border-radius: 6px; padding: 14px 18px; margin-top: 4px;
   }
-  .note p { margin: 0 0 8px; }
-  .note p:last-child { margin-bottom: 0; }
+  .promise p { margin: 0; font-size: 14.5px; }
+  .promise p + p { margin-top: 8px; color: var(--muted); font-size: 13.5px; }
+
+  .contact { margin-top: 14px; font-size: 14.5px; }
+  .contact p { margin: 0 0 8px; }
   a.text { color: var(--accent); }
 
   footer {
-    margin-top: 40px; color: var(--muted); font-size: 12.5px;
+    margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
+    color: var(--muted); font-size: 12.5px;
+  }
+  footer p { margin: 0 0 6px; }
+
+  @media (max-width: 560px) {
+    main { padding: 44px 20px 64px; }
+    h1 { font-size: 26px; }
+    .grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -85,11 +109,27 @@
     </div>
   </div>
 
-  <h1>隐私政策</h1>
-  <p class="lede">这个站点只放一份文件：扩展的隐私政策。没有服务器，没有统计，没有广告。</p>
-  <p class="lede">This site hosts one document only: the privacy policy for the extension.</p>
+  <h1>把常用的 Prompt 攒起来，点一下就用</h1>
+  <p class="lede">同一段提示词，一天要复制三遍。存在备忘录里，找起来要翻；存在聊天记录里，改一次要重贴。Prompt Daily 把它们收进一个随叫随到的抽屉——在 ChatGPT、Claude、Gemini、DeepSeek、Kimi、通义、豆包等 18 个 AI 站点的页面右侧，常驻一颗悬浮球。</p>
+  <p class="lede-en">A local-first prompt manager for your browser. No account, no server, no analytics. The interface is in Chinese.</p>
 
-  <h2>选择语言 · Language</h2>
+  <h2>能做什么</h2>
+  <div class="grid">
+    <div class="cell"><b>一键取用</b><span>点卡片即复制；开着「填入输入框」时，直接写进当前站点的对话框。</span></div>
+    <div class="cell"><b>标签整理</b><span>每个 Prompt 可打多个标签，按使用频次自动排序，常用的总在手边。</span></div>
+    <div class="cell"><b>模板变量</b><span>正文写 {{主题}} {{语气}}，取用时填个小表单，复制到的是填好的成品。</span></div>
+    <div class="cell"><b>批量整理</b><span>勾选后批量打标签、导出、删除；删掉的先进回收站，随时恢复。</span></div>
+    <div class="cell"><b>网页浮窗</b><span>在 AI 对话页右侧常驻悬浮球，可拖到任意位置；也能在任何网站上手动开启。</span></div>
+    <div class="cell"><b>多设备同步</b><span>可选 WebDAV（坚果云 / Nextcloud / 群晖等），单文件增量合并。</span></div>
+  </div>
+
+  <h2>数据在哪里</h2>
+  <div class="promise">
+    <p><strong>所有 Prompt、标签、草稿、使用次数都存在你自己电脑的浏览器里。</strong></p>
+    <p>开发者不运营任何服务器，不接收、不上传、不分析你的内容。没有账号体系，没有埋点，没有广告。唯一的出网请求发生在你亲手开启 WebDAV 同步之后，且只发往你自己填写的服务器。</p>
+  </div>
+
+  <h2>相关页面</h2>
   <div class="cards">
     <a class="card" href="./privacy.html">
       <div class="card-title">隐私政策（中文）<span class="arrow">→</span></div>
@@ -99,14 +139,21 @@
       <div class="card-title">Privacy Policy (English)<span class="arrow">→</span></div>
       <div class="card-desc">Same content, section by section. Recommended entry for store reviewers.</div>
     </a>
+    <a class="card" href="./support.html">
+      <div class="card-title">支持与常见问题<span class="arrow">→</span></div>
+      <div class="card-desc">快捷键不生效、浮窗不出现、同步失败、数据导出，都在这一页。</div>
+    </a>
   </div>
 
-  <div class="note">
-    <p>适用于 Prompt Daily·每日魔咒 1.0.0 及以后版本 · 生效日期 2026 年 10 月 26 日。</p>
-    <p>任何疑问、投诉或数据相关请求，请联系 <a class="text" href="mailto:nerbmac@163.com">nerbmac@163.com</a>，通常 7 个工作日内回复。</p>
+  <h2>联系</h2>
+  <div class="contact">
+    <p>任何疑问、故障反馈或数据相关请求，请写信到 <a class="text" href="mailto:nerbmac@163.com">nerbmac@163.com</a>，通常 7 个工作日内回复。</p>
   </div>
 
-  <footer>本页为纯静态 HTML，不加载任何外部资源，不使用 Cookie 或任何追踪脚本。</footer>
+  <footer>
+    <p>本页为纯静态 HTML，不加载任何外部资源，不使用 Cookie 或任何追踪脚本。</p>
+    <p>Prompt Daily·每日魔咒 · 适用于 1.0.0 及以后版本</p>
+  </footer>
 </main>
 </body>
 </html>
